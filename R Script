@@ -1,0 +1,206 @@
+ANALYSIS SCRIPT 
+
+Code
+
+forest(res1, xlab = "Mean difference", slab = c("Hiyama et al, 2022", "Penalosa et al, 2021", "Barone et al, 2021", "Kawabata et al, 2022", "Yagi et al, 2021", "Noh et al, 2020 (Derivation)", "Noh et al, 2020 (Validation)"), showweights = TRUE, pch = 17, ilab = cbind(RGAPData$n1i, RGAPData$m1i,RGAPData$sd1i, RGAPData$n2i, RGAPData$m2i, RGAPData$sd2i), ilab.xpos = c(-3.1,-2.7,-2.1,-1.6,-1.1,-0.7))
+
+
+
+attach(RGAPData)
+> res1 <- rma(m1i, m2i, data=RGAPData, measure="SMD", method="EE")
+Error in rma(m1i, m2i, data = RGAPData, measure = "SMD", method = "EE") : 
+  could not find function "rma"
+> library(metafor)
+Loading required package: Matrix
+
+Loading the 'metafor' package (version 3.0-2). For an
+introduction to the package please type: help(metafor)
+
+> res1 <- rma(m1i, m2i, data=RGAPData, measure="SMD", method="EE")
+> funnel(res1, main="Standard Error")
+> funnel(res1, yaxis="vi", main="Sampling Variance")
+> funnel(res1, yaxis="seinv", main="Inverse Standard Error")
+> funnel(res1, yaxis="vinv", main="Inverse Sampling Variance")
+
+
+R version 4.0.5 (2021-03-31) -- "Shake and Throw"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Workspace loaded from ~/.RData]
+
+> library(readxl)
+> RGAPData <- read_excel("Desktop/RGAPData.xlsx", 
++     col_types = c("numeric", "numeric", "numeric", 
++         "numeric", "numeric", "numeric", 
++         "numeric"))
+> View(RGAPData)                                                                                           
+> attach(RGAPData)
+> library(metafor)
+Loading required package: Matrix
+
+Loading the 'metafor' package (version 3.0-2). For an
+introduction to the package please type: help(metafor)
+
+> dat1 <- escalc(measure="SMD", m1i=m1i, sd1i=sd1i, n1i=n1i,m2i=m2i, sd2i=sd2i, n2i=n2i, data=RGAPData)
+> res1 <- rma(yi, vi, data=dat1)
+> summary(res1)
+
+Random-Effects Model (k = 7; tau^2 estimator: REML)
+
+  logLik  deviance       AIC       BIC      AICc 
+ -4.9350    9.8700   13.8700   13.4535   17.8700   
+
+tau^2 (estimated amount of total heterogeneity): 0.2462 (SE = 0.1745)
+tau (square root of estimated tau^2 value):      0.4962
+I^2 (total heterogeneity / total variability):   85.63%
+H^2 (total variability / sampling variability):  6.96
+
+Test for Heterogeneity:
+Q(df = 6) = 38.1639, p-val < .0001
+
+Model Results:
+
+estimate      se     zval    pval    ci.lb    ci.ub 
+ -0.5708  0.2082  -2.7419  0.0061  -0.9788  -0.1628  ** 
+
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+> library(readxl)
+> RGAPData <- read_excel("Desktop/RGAPData.xlsx", 
++     col_types = c("numeric", "numeric", "numeric", 
++         "numeric", "numeric", "numeric", 
++         "numeric"))
+> View(RGAPData)                                                                                           
+> attach(RGAPData)
+The following objects are masked from RGAPData (pos = 5):
+
+    m1i, m2i, n1i, n2i, sd1i, sd2i, Study
+
+> dat1 <- escalc(measure="SMD", m1i=m1i, sd1i=sd1i, n1i=n1i,m2i=m2i, sd2i=sd2i, n2i=n2i, data=RGAPData)
+> res1 <- rma(yi, vi, data=dat1)
+> summary(res1)
+
+
+
+
+GAP
+
+
+Random-Effects Model (k = 7; tau^2 estimator: REML)
+
+  logLik  deviance       AIC       BIC      AICc 
+ -4.9350    9.8700   13.8700   13.4535   17.8700   
+
+tau^2 (estimated amount of total heterogeneity): 0.2462 (SE = 0.1745)
+tau (square root of estimated tau^2 value):      0.4962
+I^2 (total heterogeneity / total variability):   85.63%
+H^2 (total variability / sampling variability):  6.96
+
+Test for Heterogeneity:
+Q(df = 6) = 38.1639, p-val < .0001
+
+Model Results:
+
+estimate      se    zval    pval   ci.lb   ci.ub 
+  0.5708  0.2082  2.7419  0.0061  0.1628  0.9788  ** 
+
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+
+forest(res1, xlab = "Mean difference in GAP", slab = c("Hiyama et al, 2022", "Penalosa et al, 2021", "Barone et al, 2021", "Yagi et al, 2021", "Kawabata et al, 2022", "Noh et al, 2020 (Derivation)", "Noh et al, 2020 (Validation)"))
+
+
+
+
+AGE
+Random-Effects Model (k = 4; tau^2 estimator: REML)
+
+  logLik  deviance       AIC       BIC      AICc 
+ -1.3646    2.7292    6.7292    4.9264   18.7292   
+
+tau^2 (estimated amount of total heterogeneity): 0.0484 (SE = 0.0922)
+tau (square root of estimated tau^2 value):      0.2199
+I^2 (total heterogeneity / total variability):   43.72%
+H^2 (total variability / sampling variability):  1.78
+
+Test for Heterogeneity:
+Q(df = 3) = 5.5491, p-val = 0.1357
+
+Model Results:
+
+estimate      se    zval    pval    ci.lb   ci.ub 
+  0.2124  0.1671  1.2715  0.2036  -0.1150  0.5398    
+
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+
+
+BMI
+
+Random-Effects Model (k = 3; tau^2 estimator: REML)
+
+  logLik  deviance       AIC       BIC      AICc 
+  0.3217   -0.6433    3.3567    0.7430   15.3567   
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0588)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity:
+Q(df = 2) = 0.9687, p-val = 0.6161
+
+Model Results:
+
+estimate      se    zval    pval    ci.lb   ci.ub 
+  0.1452  0.1197  1.2123  0.2254  -0.0895  0.3799    
+
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+
+
+Levels
+
+
+Random-Effects Model (k = 3; tau^2 estimator: REML)
+
+  logLik  deviance       AIC       BIC      AICc 
+ -0.5026    1.0052    5.0052    2.3915   17.0052   
+
+tau^2 (estimated amount of total heterogeneity): 0.0454 (SE = 0.1112)
+tau (square root of estimated tau^2 value):      0.2130
+I^2 (total heterogeneity / total variability):   41.26%
+H^2 (total variability / sampling variability):  1.70
+
+Test for Heterogeneity:
+Q(df = 2) = 3.1477, p-val = 0.2072
+
+Model Results:
+
+estimate      se    zval    pval    ci.lb   ci.ub 
+  0.1600  0.1865  0.8576  0.3911  -0.2056  0.5255    
+
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
